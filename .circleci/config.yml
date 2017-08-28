@@ -22,6 +22,18 @@ jobs:
           command: |
             python manage.py test
             flake8 --exclude polls/migrations/,manage.py  .
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
+
+      - run: bash .circleci/setup-heroku.sh
+ 
+      - run: bash .circleci/setup-heroku.sh
+
+      - add_ssh_keys:
+          fingerprints:
+            - "95:78:98:4a:12:dc:02:f1:86:9e:46:26:f0:3a:fb:b3"
+            
+      - deploy:
+          name: Deploy Master to Heroku
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push heroku master -f
+            fi
