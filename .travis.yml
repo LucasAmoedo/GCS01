@@ -2,10 +2,14 @@ language: python
 python:
 - '3.5'
 install:
-- pip install django flake8
+- pip install -r requirements.txt
 script:
+- python manage.py collectstatic
 - python manage.py test
 - flake8 --exclude polls/migrations/,manage.py  .
+
 deploy:
+  provider: heroku
   api_key:
     secure: H8xxc0CM/ksMLHZMOWJwcA+Muq0h9+xp22VPhm+YbEGSwz2QcXs4y08nI8cs/d/4IQZq8AsxzR9+0lR0oSafXzylgHlad4EdrsDxCcN0yfB8ybaMcTkOSM4RZJWrwSnKJbVSrlqPJSIEooN1i8kDEV6eXGihPZf6jugBq+9dtcKpnBCn5IRK/OM9gor5Xp6+zSm4xk2VY0SR8LEaGhob/b24JDhs66vh9qIa6teB6E22oScfkXKjyof9XayCWFoxpNESjy2QXFeVe7+QBYRMze+NIBLFYRdDyfKLAHfVHH+Q7VIeozNzUN3Q5tkzGqm7otuqQI7QBcMpJCJ8P/dlreyKygjCeajUGR36jyIZtEAObdNHSXYlkCboeeMK1tDgk1ChevwWaf3lt9niNw1uPY/ufb+ARbe1nPu0yrPNaz7iQ/npipAfIUeGo22J8mikEFQl45UcETZfxmBpg8dfkjLJQ6WlyXl7VTLArBDYSMEwurhou92eB1Ic7av0KXrnF31HRiKwyrQiZOuPywffGfdBHP9UoZgfvIf7eSZ+c0MsfZAkquw1ejD1KNjZtzxETiZQwQvU66KWpaFd6dkQNOGvByFU/NpUQk7qVcrXozkLhw5b8Jv8Pd3T88JGVb908iVkSSzWrYpV7XLuUvQ2m23W+iAzP+0pCEL28aMKmQs=
+  app: gcs01-lucasamoedo-travis
